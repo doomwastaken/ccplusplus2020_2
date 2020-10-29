@@ -5,7 +5,7 @@ extern "C" {
 }
 
 TEST(LisTest, BaseTest) {
-    int buf[] = {13, 13, 13, 0, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4};
+    int buf[] = {13, 13, 15, 0, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4};
     int size = sizeof(buf) / sizeof (int);
     int right = 0;
     int left = 0;
