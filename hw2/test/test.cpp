@@ -4,7 +4,7 @@ extern "C" {
     #include "sequential.h"
 }
 
-TEST(LisTest, BaseTest) {
+TEST(SeqTest, BaseTest) {
     int buf[] = {13, 13, 15, 0, 1, 2, 3, 4, 5, 6, 1, 2, 3, 4};
     int size = sizeof(buf) / sizeof (int);
     int right = 0;

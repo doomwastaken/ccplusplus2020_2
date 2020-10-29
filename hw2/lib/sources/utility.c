@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utility.h"
 
-const int* generate_array(int d) {
+int* generate_array(int d) {
     int* arr = malloc(sizeof(int)*d);
 
     if (!arr)
@@ -22,16 +22,16 @@ int read_from_file(int **buf, int *size, char *file_path) {
         return FILE_OPEN_ERROR;
     }
 
-    int num_of_spaces = 0;
+    int spaces = 0;
     char tmp;
 
     while ((tmp = fgetc(file)) != EOF) {
         if (tmp == ' ') {
-            num_of_spaces++;
+            spaces++;
         }
     }
 
-    *size = num_of_spaces + 1;
+    *size = spaces + 1;
     (*buf) = (int*)malloc((*size) * sizeof(int));
     if (!(*buf)) {
         fclose(file);

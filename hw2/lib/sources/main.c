@@ -16,22 +16,18 @@ int main(int argc, char *argv[]) {
         return ARGS_ERROR;
     }
 
-    char *f_path = argv[1];
+    // char *f_path = argv[1];
 
     int *buf = NULL;
     int size = 0;
 
-    int ret = read_from_file(&buf, &size, f_path);
+    //  int ret = read_from_file(&buf, &size, f_path);
+    buf = generate_array(BUF_SIZE);
+    size = BUF_SIZE;
 
-    if (ret == FILE_OPEN_ERROR) {
-        printf("Wrong path to file\n");
-        return FILE_OPEN_ERROR;
-    } else if (ret == MEMORY_ALLLOC_ERROR) {
+    if (!buf) {
         printf("Memory allocation error\n");
         return MEMORY_ALLLOC_ERROR;
-    } else if (ret == FILE_CONTENT_ERROR) {
-        printf("The file must contain only numbers\n");
-        return FILE_CONTENT_ERROR;
     }
 
     printf("Sequential implementation:\r\n");
@@ -39,7 +35,7 @@ int main(int argc, char *argv[]) {
     int left = 0;
 
     clock_t begin = clock();
-    ret = find_seq(buf, size, &left, &right);
+    int ret = find_seq(buf, size, &left, &right);
     clock_t end = clock();
     double time_seq = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("Run lasted: %f\r\n", time_seq);
