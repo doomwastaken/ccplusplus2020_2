@@ -53,7 +53,7 @@ script:
   - valgrind --tool=memcheck --leak-check=full ../output/task ../hw2/data/data.txt
   - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../hw2/lib/includes/ ../hw2/lib/sources/
   - ../output/task ../hw2/data/data.txt
-  - ../output/gtest_test1
+  - ../output/gtest_test
   - cpplint ../hw2/lib/includes/* ../hw2/lib/sources/* ../hw2/test/main.cpp
 
 after_script:
