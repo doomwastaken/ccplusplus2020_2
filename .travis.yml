@@ -1,0 +1,84 @@
+dist: focal    
+osx_image: xcode12.2
+sudo: required
+
+language:
+  - c
+  - c++
+
+branches:
+  only:
+    - iz2
+
+os: 
+  - linux
+  - osx
+
+compiler:
+  - gcc
+  - clang
+
+env:
+    # список переменных окружения, влияющих на матрицу сборки:
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=amd64 BUILD_CONFIGURATION=Release
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+    - TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
+matrix:
+    exclude:
+        # вручную исключим ненужные элементы из матрицы сборки:
+        - os:       osx
+          compiler: gcc
+
+        - os:  osx
+          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Debug
+
+        - os:  osx
+          env: TARGET_CPU=x86 BUILD_CONFIGURATION=Release
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - cmake
+      - gcc
+      - valgrind
+      - cppcheck
+
+before_install:
+  - sudo apt update
+  - sudo -i which cmake
+  - sudo -i cmake --version
+
+install:
+  - cmake --version
+  - gcc --version
+  - sudo apt install cppcheck
+  - sudo apt install valgrind
+  - sudo apt install libgtest-dev
+  - python3.6 -m pip install cpplint
+  - cd /usr/src/gtest
+  - dir
+  - sudo cmake CMakeLists.txt
+  - sudo make
+  - sudo mv libgtest* /usr/lib/
+  - cd "${TRAVIS_BUILD_DIR}"
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - valgrind --tool=memcheck --leak-check=full ../output/task ../hw2/data/data.txt
+  - cppcheck --enable=all --std=c99 --check-config --suppress=missingIncludeSystem -I ../hw2/lib/includes/ ../hw2/lib/sources/
+  - ../output/task ../hw2/data/data.txt
+  - ../output/gtest_test1
+  - cpplint ../hw2/lib/includes/* ../hw2/lib/sources/* ../hw2/test/main.cpp
+
+after_script:
+  - make clean
+
+notifications:
+  email: false
