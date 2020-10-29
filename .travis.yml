@@ -43,7 +43,6 @@ install:
   - dir
   - sudo cmake CMakeLists.txt
   - sudo make
-  - sudo mv libgtest* /usr/lib/
   - cd "${TRAVIS_BUILD_DIR}"
 
 script:
