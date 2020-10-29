@@ -38,7 +38,7 @@ install:
   - sudo apt install cppcheck
   - sudo apt install valgrind
   - sudo apt install libgtest-dev
-  - python3.6 -m pip install cpplint
+  - python3.8 -m pip install cpplint
   - cd /usr/src/gtest
   - dir
   - sudo cmake CMakeLists.txt
